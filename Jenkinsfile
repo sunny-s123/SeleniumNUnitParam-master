@@ -2,7 +2,7 @@ pipeline
 {
 stages{
 	stage('CheckOut'){
-
+	steps{
         checkout([
             $class: 'TeamFoundationServerScm',
             credentialsConfigurer: [$class: 'AutomaticCredentialsConfigurer'], 
@@ -15,19 +15,23 @@ stages{
             
             ])
           }
+	}
     stage('Restore'){
-        echo '######################### Restore Starts ###########################################'
+        steps{
+	echo '######################### Restore Starts ###########################################'
         bat "dotnet restore"
-      }
+      }}
     stage('Clean'){
-        echo '########################## Clean starts ##########################################'
+        steps{
+	echo '########################## Clean starts ##########################################'
         bat "dotnet clean ESB.sln"
-        }
+        }}
         
     stage('Build'){
-        echo '########################### Build Strated #########################################'
+        steps{
+	echo '########################### Build Strated #########################################'
         bat "dotnet build --configuration Release ESB.sln"
-    }
+    }}
 }
 
 }
