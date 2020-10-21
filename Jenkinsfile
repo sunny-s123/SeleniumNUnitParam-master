@@ -1,7 +1,8 @@
 pipeline
 {
-    
-    stage 'CheckOut'
+stages{
+	stage('CheckOut'){
+
         checkout([
             $class: 'TeamFoundationServerScm',
             credentialsConfigurer: [$class: 'AutomaticCredentialsConfigurer'], 
@@ -13,19 +14,20 @@ pipeline
             versionSpec :"${params.versionSpec}"
             
             ])
-            
-    stage 'Restore'
+          }
+    stage('Restore'){
         echo '######################### Restore Starts ###########################################'
         bat "dotnet restore"
-      
-    stage 'Clean'
+      }
+    stage('Clean'){
         echo '########################## Clean starts ##########################################'
         bat "dotnet clean ESB.sln"
+        }
         
-        
-    stage 'Build'
+    stage('Build'){
         echo '########################### Build Strated #########################################'
         bat "dotnet build --configuration Release ESB.sln"
-    
+    }
+}
 
 }
