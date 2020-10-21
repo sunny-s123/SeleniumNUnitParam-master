@@ -1,37 +1,23 @@
-Jenkinsfile (Declarative Pipeline)
-pipeline
-{
+node{
+	
 stages{
 	stage('CheckOut'){
-	steps{
-        checkout([
-            $class: 'TeamFoundationServerScm',
-            credentialsConfigurer: [$class: 'AutomaticCredentialsConfigurer'], 
-            projectPath: '$/ILESB_Onprem/SourceCode/ILServices-UAT/ESB', 
-            serverUrl: 'http://iltfs/tfs/ilprojectcollection02', 
-            useOverwrite: true, 
-            useUpdate: true, 
-            workspaceName: 'Hudson-${JOB_NAME}-${NODE_NAME}',
-            versionSpec :"${params.versionSpec}"
-            
-            ])
+		steps{
+			checkout([$class: 'TeamFoundationServerScm',credentialsConfigurer: [$class: 'AutomaticCredentialsConfigurer'], projectPath: '$/ILESB_Onprem/SourceCode/ILServices-UAT/ESB', serverUrl: 'http://iltfs/tfs/ilprojectcollection02', useOverwrite: true,useUpdate: true,workspaceName: 'Hudson-${JOB_NAME}-${NODE_NAME}',versionSpec :"${params.versionSpec}"])
           }
 	}
     stage('Restore'){
-        steps{
-	echo '######################### Restore Starts ###########################################'
-        bat "dotnet restore"
+	    steps{
+		    bat "dotnet restore"
       }}
     stage('Clean'){
-        steps{
-	echo '########################## Clean starts ##########################################'
-        bat "dotnet clean ESB.sln"
+	    steps{
+        	bat "dotnet clean ESB.sln"
         }}
         
-    stage('Build'){
-        steps{
-	echo '########################### Build Strated #########################################'
-        bat "dotnet build --configuration Release ESB.sln"
+	stage('Build'){
+	    steps{
+		    bat "dotnet build --configuration Release ESB.sln"
     }}
 }
 
