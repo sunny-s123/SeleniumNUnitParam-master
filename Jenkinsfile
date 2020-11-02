@@ -1,4 +1,6 @@
 node{
+	try{
+	
 	notifyStarted()
 
 	stage('CheckOut'){
@@ -19,6 +21,11 @@ node{
 	}
 	
 	notifySuccessful()
+	} catch (e) {
+    currentBuild.result = "FAILED"
+    notifyFailed()
+    throw e
+  }
 }
 def notifyStarted() {
   // send to email
@@ -36,6 +43,15 @@ def notifySuccessful() {
       to: '1018346@icicilombard.com',
       subject: "SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
       body: """<p>SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
+        <p>Check console output at &QUOT;<a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>&QUOT;</p>""",
+      recipientProviders: [[$class: 'DevelopersRecipientProvider']]
+    )
+}
+
+def notifyFailed() {
+  emailext (
+      subject: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
+      body: """<p>FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
         <p>Check console output at &QUOT;<a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>&QUOT;</p>""",
       recipientProviders: [[$class: 'DevelopersRecipientProvider']]
     )
