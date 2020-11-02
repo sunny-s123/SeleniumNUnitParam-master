@@ -15,9 +15,8 @@ node{
 		def now = new Date()
         	bat "dotnet publish ${params.PublishProj} -o ${params.Folder}//${JOB_NAME}//${now.format("yyyy-MM-dd")}//${BUILD_ID}"
 	}
-		stage('Email'){
-			always {
-            emailext body: 'A Test EMail', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'Test'
-			}}
+	post{
+		always {emailext body: 'A Test EMail', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'Test'}
+	}
     }
 }
