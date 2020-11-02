@@ -12,6 +12,7 @@ node{
         	}
 	stage('Build'){
 		bat "dotnet build --configuration Release ${params.solution}"
+		}
 	stage('Publish'){
 		def now = new Date()
         	bat "dotnet publish ${params.PublishProj} -o ${params.Folder}//${JOB_NAME}//${now.format("yyyy-MM-dd")}//${BUILD_ID}"
