@@ -29,7 +29,7 @@ node{
 }
 def notifyStarted() {
   // send to email
-emailext 
+emailext( 
 	attachmentsPattern: 'test/myPdf3*', body: '''<p>STARTED: Job \'${env.JOB_NAME} [${env.BUILD_NUMBER}]\':</p>
 <p>Check console output at &QUOT;<a href=\'${env.BUILD_URL}\'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>&QUOT;</p>''', 
 	compressLog: true, 
@@ -38,6 +38,7 @@ emailext
 	replyTo: 'sunny9402.ss@gmail.com', 
 	subject: 'STARTED: Job \'${env.JOB_NAME} [${env.BUILD_NUMBER}]\'', 
 	to: 'sunny9402.ss@gmail.com'
+	)
 }
 
 def notifySuccessful() {
