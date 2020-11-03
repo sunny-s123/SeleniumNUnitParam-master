@@ -1,5 +1,5 @@
 node{
-	try{
+	//try{
 	
 	notifyStarted()
 
@@ -21,11 +21,11 @@ node{
 	}
 	
 	notifySuccessful()
-	} catch (e) {
-    currentBuild.result = "FAILED"
-    notifyFailed()
-    throw e
-  }
+	//} catch (e) {
+    //currentBuild.result = "FAILED"
+    //notifyFailed()
+    //throw e
+  //}
 }
 def notifyStarted() {
   // send to email
