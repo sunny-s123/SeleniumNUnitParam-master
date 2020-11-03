@@ -33,6 +33,7 @@ def notifyStarted() {
       to: '1018341@icicilombard.com',
       subject: "STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
       body: """<p>STARTED: Job name: '${env.JOB_NAME}' , Build No. : '[${env.BUILD_NUMBER}]' : </p>
+        <p> Dated: '${env.now()}'</p>
         <p>Check console output at &QUOT;<a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>&QUOT;</p>""",
       recipientProviders: [[$class: 'DevelopersRecipientProvider']]
     )
@@ -42,7 +43,7 @@ def notifySuccessful() {
   emailext (
       to: '1018341@icicilombard.com',
       subject: "SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
-      body: """<p>SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
+      body: """<p>SUCCESSFUL: Job name: '${env.JOB_NAME}' , Build No. : '[${env.BUILD_NUMBER}]':</p>
         <p>Check console output at &QUOT;<a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>&QUOT;</p>""",
       compressLog: true,
       attachLog: true,
@@ -55,7 +56,7 @@ def notifyFailed() {
   emailext (
       to: '1018341@icicilombard.com',
       subject: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
-      body: """<p>FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
+      body: """<p>FAILED: Job name: '${env.JOB_NAME}' ,Build No.: [${env.BUILD_NUMBER}]':</p>
         <p>Check console output at &QUOT;<a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>&QUOT;</p>""",
       compressLog: true,
       attachLog: true,
