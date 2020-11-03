@@ -28,12 +28,13 @@ node{
   }
 }
 def notifyStarted() {
+
   // send to email
   emailext (
       to: '1018341@icicilombard.com',
       subject: "STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
       body: """<p>STARTED: Job name: '${env.JOB_NAME}' , Build No. : '[${env.BUILD_NUMBER}]' : </p>
-        <p> Dated: '${env.Date()}'</p>
+        
         <p>Check console output at &QUOT;<a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>&QUOT;</p>""",
       recipientProviders: [[$class: 'DevelopersRecipientProvider']]
     )
